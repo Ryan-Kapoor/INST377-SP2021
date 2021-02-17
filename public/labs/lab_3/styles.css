@@ -1,2 +1,71 @@
 /* Add some css styles based on the tutorial at javascript.info: introduction to browser events
  https://javascript.info/introduction-browser-events */
+
+body {
+    padding: 10px;
+}
+
+.carousel {
+    position: relative;
+    width: 398px;
+    padding: 10px 40px;
+    border: 5px solid #ffee00;
+    border-radius: 15px;
+    background: #00bfff;
+}
+
+.carousel img {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
+ .arrow {
+     position: absolute;
+     top: 60px;
+     padding: 0;
+     background: #6495ed;
+     border-radius: 15px;
+     border: 1px #00bfff;
+     font-size: 24px;
+     line-height: 24px;
+     color: #228b22;
+     display: block;
+ }
+
+ .arrow:focus {
+     outline: #ff1493;
+
+ }
+ .arrow:hover {
+     background: #ffd700;
+     cursor: pointer;
+
+ }
+
+ .prev {
+     left: 7px;
+ }
+
+.next {
+    right: 7px;
+}
+
+ .gallery {
+    width: 390 px;
+    overflow: hidden;
+ }
+
+ .gallery ul {
+     height: 150px;
+     width: 9999px;
+     margin: 0;
+     padding: 0;
+     list-style: none;
+     transition: margin-left 250ms;
+     font-size: 0;
+ }
+
+ .gallery li {
+     display: inline-block;
+ }
