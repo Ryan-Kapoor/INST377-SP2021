@@ -3,20 +3,24 @@
 
 body {
     padding: 10px;
+    background-color: #ffa083;
 }
 
 .carousel {
     position: relative;
-    width: 398px;
+    width: 390px;
     padding: 10px 40px;
-    border: 5px solid #ffee00;
+    border: 5px solid #ffd700;
     border-radius: 15px;
     background: #00bfff;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .carousel img {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     display: block;
 }
 
@@ -24,12 +28,12 @@ body {
      position: absolute;
      top: 60px;
      padding: 0;
-     background: #6495ed;
+     background: #00ffbf;
      border-radius: 15px;
      border: 1px #00bfff;
      font-size: 24px;
      line-height: 24px;
-     color: #228b22;
+     color: #00bfff;
      display: block;
  }
 
@@ -57,7 +61,7 @@ body {
  }
 
  .gallery ul {
-     height: 150px;
+     height: 130px;
      width: 9999px;
      margin: 0;
      padding: 0;
@@ -69,3 +73,11 @@ body {
  .gallery li {
      display: inline-block;
  }
+
+ .centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+  }
