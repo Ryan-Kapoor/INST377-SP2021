@@ -1,1 +1,24 @@
-#mapid { height: 180px; }
+#mapid { height: 480px; width: 480px;}
+
+/* .columns .column #mapid {
+    display: flex; 
+    justify-content: center;
+}
+
+#mapid {
+    display: flex; 
+    justify-content: center;
+    justify
+} */
+
+body {
+    background-color: #ebfffc
+}
+
+h1 {
+    color: rgb(28, 168, 168);
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    font: monospace;
+}
