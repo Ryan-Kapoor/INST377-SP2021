@@ -2,13 +2,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector(".grid")
     const doodler = document.createElement("div") //creating the doodler
     let doodlerLeftSpace = 50
-    let doodlerBottomSpace = 250
+    let startPoint = 150
+    let doodlerBottomSpace = startPoint
     let isGameOver = false
     let platformCount = 5
     let platforms = []
     let upTimerId
     let downTimerId
     let isJumping = true
+    let isGoingLeft = false
+    let isGoingRight = false
+    let leftTimerId
+    let rightTimerId
+    let score = 0
+
+
 
     function createDoodler() {
         grid.appendChild(doodler)
@@ -48,6 +56,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 platform.bottom -= 4 //platform.bottom minus 4
                 let visual = platform.visual
                 visual.style.bottom = platform.bottom + 'px' //move platforms down by 4 pixels each time
+
+                if (platform.bottom < 10) {
+                    let firstPlatform = platforms[0].visual 
+                    firstPlatform.classList.remove('platform') //removing the class of platform from the first item so we don't see it anymore
+                    platforms.shift() //removing the first item in the array
+                    score ++ //incrememting the score when a platform disappears off the bottom of the screen
+                    console.log(platforms)
+                    let newPlatform = new Platform(600) //new platform will appear at the top of the grid
+                    platforms.push(newPlatform)
+                }
             })
         }
     }
@@ -58,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         upTimerId = setInterval(function () {
             doodlerBottomSpace += 20 
             doodler.style.bottom = doodlerBottomSpace + 'px' //Up by 20 pixels every 30 milliseconds
-            if (doodlerBottomSpace > 350) {
+            if (doodlerBottomSpace > startPoint + 200) {
                 fall()
             }
         },30)
@@ -82,27 +100,70 @@ document.addEventListener('DOMContentLoaded', () => {
                     !isJumping
                 ) {
                     console.log('landed')
+                    startPoint = doodlerBottomSpace //Overriding 150, if we are on platform, then we can override the start point
                     jump()
                 }
             })
-        },30)
+        },20)
     }
 
     function GameOver() {
         console.log('game over')
         isGameOver = true
+        while (grid.firstElementChild) { //if the first child of the grid exsists, we continue to remove the first child
+            grid.removeChild(grid.firstChild)
+        }
+        grid.innerHTML = score
         clearInterval(upTimerId)
         clearInterval(downTimerId)
+        clearInterval(leftTimerId)
+        clearInterval(rightTimerId)
     }
 
     function control(e) {
-        if(e.key === "ArrowLeft") { //if the key event = left arrow, 
-            //move left
+        if(e.key === "ArrowLeft") { //if the key event = left arrow, start the moveLeft function
+            moveLeft()
         } else if (e.key === "ArrowRight") {
-            //move right
+            moveRight()
         } else if (e.key === "ArrowUp") {
-           //moveStraight
+           moveStraight()
         }
+    }
+
+    function moveLeft() {
+        if (isGoingRight) {
+            clearInterval(rightTimerId)
+            isGoingRight = false
+        }
+        isGoingLeft = true
+        leftTimerId - setInterval(function (){
+            if (doodlerLeftSpace >= 0) {
+                doodlerLeftSpace -= 5
+                doodler.style.left = doodlerLeftSpace + 'px'
+            } else moveRight()
+
+        },20)
+    }
+
+    function moveRight() {
+        if(isGoingLeft) {
+            clearInterval(leftTimerId)
+            isGoingLeft = false
+        }
+        isGoingRight = true
+        rightTimerId = setInterval(function () {
+            if(doodlerLeftSpace <= 340) {
+                doodlerLeftSpace += 5
+                doodler.style.left = doodlerLeftSpace + 'px'
+            } else moveLeft()
+        }, 30)
+    }
+
+    function moveStraight() {
+        isGoingRight = false
+        isGoingLeft = false
+        clearInterval(rightTimerId)
+        clearInterval(leftTimerId)
     }
 
     function start() {
@@ -111,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
             createDoodler()
             setInterval(movePlatforms, 30) //platform moves down by 4 pixels every 30 seconds
             jump()
+            document.addEventListener('keyup', control)
         }
     }
     start()

@@ -1,14 +1,17 @@
 .grid {
     width: 400px;
     height: 600px;
-    background-color: yellow;
+    background-image: url(doodle-background.png);
     position: relative; /* relative inside browser */
+    font-size: 200px;
+    text-align: center;
+    font-family: 'Shadows Into Light', cursive;
 }
 
 .doodler {
     width: 60px;
     height: 85px;
-    background-color: red;
+    background-image: url('Doodler.png');
     position: absolute; /* absolute inside the grid*/
 }
 
